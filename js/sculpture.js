@@ -41,8 +41,8 @@ export function mountSculpture(host) {
     for (let i = 0; i < 5; i += 1) {
       const plate = new THREE.Group();
       const shape = track(new THREE.BoxGeometry(2.25, 0.085, 2.25));
-      const color = i === 2 ? 0xe9ad75 : 0x8be1ca;
-      const fill = track(new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.13, depthWrite: false }));
+      const color = 0xc8a27a;
+      const fill = track(new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.05, depthWrite: false }));
       const line = track(new THREE.LineBasicMaterial({ color }));
       plate.add(new THREE.Mesh(shape, fill));
       plate.add(new THREE.LineSegments(track(new THREE.EdgesGeometry(shape)), line));
@@ -51,9 +51,9 @@ export function mountSculpture(host) {
       stack.add(plate);
     }
 
-    const bead = track(new THREE.SphereGeometry(0.043, 12, 8));
-    const metal = track(new THREE.MeshBasicMaterial({ color: 0xffc489 }));
-    const column = track(new THREE.LineBasicMaterial({ color: 0x528f88 }));
+    const bead = track(new THREE.SphereGeometry(0.032, 12, 8));
+    const metal = track(new THREE.MeshBasicMaterial({ color: 0xc8a27a }));
+    const column = track(new THREE.LineBasicMaterial({ color: 0x8a8f94, transparent: true, opacity: 0.7 }));
     for (const x of [-0.72, 0.72]) {
       for (const z of [-0.72, 0.72]) {
         const path = track(new THREE.BufferGeometry().setFromPoints([
@@ -85,15 +85,27 @@ export function mountSculpture(host) {
     resize();
     host.classList.add("ready");
 
-    onMove = (event) => {
-      if (dead || event.pointerType === "touch" || reduceMotion()) return;
-      const rect = host.getBoundingClientRect();
-      stack.rotation.y = ((event.clientX - rect.left) / rect.width - 0.5) * 0.65;
-      stack.rotation.x = ((event.clientY - rect.top) / rect.height - 0.5) * 0.16;
+    let yaw = 0;
+    let tilt = 0;
+    let raf = 0;
+    const spin = !reduceMotion();
+    const tick = () => {
+      if (dead || !spin) return;
+      yaw += 0.0016;
+      stack.rotation.y = yaw;
+      stack.rotation.x = tilt;
       draw();
+      raf = requestAnimationFrame(tick);
+    };
+    if (spin) raf = requestAnimationFrame(tick);
+    onMove = (event) => {
+      if (!spin || event.pointerType === "touch") return;
+      const rect = host.getBoundingClientRect();
+      tilt = ((event.clientY - rect.top) / rect.height - 0.5) * 0.12;
     };
     host.addEventListener("pointermove", onMove);
     renderer.domElement.addEventListener("webglcontextlost", () => host.classList.remove("ready"));
+    host._stopSpin = () => cancelAnimationFrame(raf);
   };
 
   let seen = false;
@@ -110,6 +122,7 @@ export function mountSculpture(host) {
     visibility.disconnect();
     resizeObserver?.disconnect();
     if (onMove) host.removeEventListener("pointermove", onMove);
+    host._stopSpin?.();
     renderer?.dispose();
     disposables.forEach((item) => item.dispose?.());
     renderer?.domElement.remove();

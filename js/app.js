@@ -1,7 +1,7 @@
 import { views } from "./views/index.js";
 import { navTarget, startRouter } from "./router.js";
 import { pageMeta } from "./data.js";
-import { reduceMotion } from "./motion.js";
+import { observeReveal, reduceMotion } from "./motion.js";
 
 const main = document.querySelector("#contenu");
 const description = document.querySelector('meta[name="description"]');
@@ -27,8 +27,12 @@ function draw(route) {
   setNav(navTarget(route));
   const footer = document.querySelector("footer");
   if (footer) footer.hidden = route.view === "contact";
+  const stopReveal = observeReveal(main);
   const stopView = view.mount ? (view.mount(main, route) || (() => {})) : (() => {});
-  cleanup = () => stopView();
+  cleanup = () => {
+    stopReveal();
+    stopView();
+  };
   if (!first) {
     main.focus({ preventScroll: true });
     window.scrollTo(0, 0);

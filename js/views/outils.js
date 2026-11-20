@@ -4,18 +4,23 @@ import { mountToolNetwork } from "../tools.js";
 
 export function render() {
   return `<section>
+    <p class="sec-num">03</p>
     <h2>Mes outils au quotidien</h2>
     <p>${escapeHtml(toolNetwork.description)}</p>
     <div class="tool-panel" data-tools>
       <div data-tools-svg></div>
     </div>
-    <button class="motion-toggle" type="button" hidden>Mettre l’animation en pause</button>
+    <button class="motion-toggle link" type="button" hidden>Mettre l’animation en pause</button>
   </section>
   <section>
+    <p class="sec-num">04</p>
     <h2>Compétences techniques</h2>
-    <dl>
-      ${skillGroups.map((group) => `<dt>${escapeHtml(group.title)}</dt><dd>${escapeHtml(group.items)}</dd>`).join("")}
-    </dl>
+    <div>
+      ${skillGroups.map((group, index) => `<div class="skill-block" data-reveal style="--d:${index}">
+        <h3>${escapeHtml(group.title)}</h3>
+        <p>${escapeHtml(group.items)}</p>
+      </div>`).join("")}
+    </div>
   </section>`;
 }
 

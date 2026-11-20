@@ -17,6 +17,7 @@ export const cases = [
   {
     slug: "solydd",
     summaryLabel: "Solydd · Suivre les accès aux données",
+    tools: ["SQL Server", "SharePoint", "Microsoft Fabric", "Power BI", "Entra ID", "KQL"],
     text: "J’ai centralisé les données de SQL Server et de SharePoint dans un Lakehouse Microsoft Fabric pour alimenter Power BI. J’ai géré les autorisations sur les vues avec des groupes Entra ID et analysé les journaux d’accès avec KQL.",
     demoTitle: "Démonstration KQL",
     demoNote: "Dans ce journal fictif, deux lectures refusées invitent à vérifier les droits du groupe Finance.",
@@ -32,6 +33,7 @@ export const cases = [
   {
     slug: "desjardins",
     summaryLabel: "Desjardins · Retrouver un écart de réconciliation",
+    tools: ["SQL"],
     text: "J’ai automatisé les tests de qualité et comparé les données sources aux données transformées avant leur mise en production. J’ai aussi documenté leur parcours pour les audits financiers.",
     demoTitle: "Démonstration SQL",
     demoNote: "Le lot fictif A contient deux écritures de 60 et 40 dollars. Le contrôle signale les 5 dollars manquants dans le total transformé.",
@@ -48,6 +50,7 @@ HAVING SUM(e.montant) <> r.total;`
   {
     slug: "frequentis",
     summaryLabel: "Frequentis · Reprendre un flux interrompu",
+    tools: [],
     text: "J’ai configuré des alertes, mis en œuvre des sauvegardes et participé à la résolution d’incidents d’infrastructure en soutien de niveaux 2 et 3.",
     demoTitle: "Scénario illustratif",
     steps: [
@@ -61,25 +64,33 @@ HAVING SUM(e.montant) <> r.total;`
 
 export const projects = [
   {
+    slug: "shopping-data",
     title: "Analyser des données de commerce avec Microsoft Fabric",
+    tools: ["Microsoft Fabric", "Lakehouse"],
     text: "Commandes et produits en CSV, avis clients en JSON et journaux web constituent les jeux de données de cet atelier. Les notebooks Silver et Gold illustrent les étapes de transformation du Lakehouse.",
     url: "https://github.com/Arsene-3DA/Shopping_Data",
     link: "Explorer Shopping_Data sur GitHub ↗"
   },
   {
+    slug: "entrepot",
     title: "Réunir les données CRM et ERP",
+    tools: ["CRM", "ERP", "SQL"],
     text: "Ce projet d’entrepôt de données rassemble deux sources métier. La procédure SQL de chargement de la couche Bronze constitue le point d’entrée pour comprendre l’alimentation de l’entrepôt.",
     url: "https://github.com/Arsene-3DA/Data_Projet_Warehouse",
     link: "Explorer Data_Projet_Warehouse sur GitHub ↗"
   },
   {
+    slug: "fincorp",
     title: "Concevoir un lac de données réglementaires sur GCP",
+    tools: ["GCP", "Cloud Storage", "BigQuery"],
     text: "Le schéma d’architecture de Fincorp décrit le parcours envisagé pour des données de l’OSFI, depuis Cloud Storage jusqu’au tableau de bord, en passant par les couches Bronze, Silver et Gold dans BigQuery.",
     url: "https://github.com/Arsene-3DA/-fincorp-data-platform",
     link: "Explorer -fincorp-data-platform sur GitHub ↗"
   },
   {
+    slug: "films",
     title: "Interroger un catalogue de films en SQL",
+    tools: ["SQL", "Python"],
     text: "Un carnet d’exercices SQL part de questions sur les films, comme la recherche du coût de remplacement le plus bas. Le dépôt inclut également un script Python de connexion à la base de données.",
     url: "https://github.com/Arsene-3DA/Data_Projet",
     link: "Explorer Data_Projet sur GitHub ↗"
@@ -138,9 +149,20 @@ export function getCase(slug) {
   return cases.find((item) => item.slug === slug) || null;
 }
 
+export function getProject(slug) {
+  return projects.find((item) => item.slug === slug) || null;
+}
+
 export function pageMeta(route) {
   const base = `${profile.name} | Sécurité des données`;
-  if (route.view === "cas") return { title: `Études de cas | ${profile.name}`, description: cases[0].text };
+  if (route.view === "cas") {
+    const item = route.slug ? getCase(route.slug) : null;
+    return { title: `${item ? item.summaryLabel : "Études de cas"} | ${profile.name}`, description: item?.text || cases[0].text };
+  }
+  if (route.view === "projet") {
+    const item = getProject(route.slug);
+    return { title: `${item ? item.title : "Projets GitHub"} | ${profile.name}`, description: item?.text || projects[0].text };
+  }
   if (route.view === "projets") return { title: `Projets GitHub | ${profile.name}`, description: projects[0].text };
   if (route.view === "outils") return { title: `Outils | ${profile.name}`, description: toolNetwork.description };
   if (route.view === "parcours") return { title: `Parcours | ${profile.name}`, description: parcours[1].text };

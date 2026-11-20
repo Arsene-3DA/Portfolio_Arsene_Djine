@@ -1,4 +1,4 @@
-const VIEWS = new Set(["accueil", "cas", "projets", "outils", "parcours", "contact"]);
+const VIEWS = new Set(["accueil", "cas", "projets", "projet", "outils", "parcours", "contact"]);
 
 const LEGACY = {
   cas: "cas",
@@ -34,12 +34,14 @@ export function parseRoute(hash = location.hash) {
   const head = parts[0] || "accueil";
 
   if (head === "cas" && parts.length <= 2) return { view: "cas", slug: parts[1] || "" };
-  if (VIEWS.has(head) && parts.length === 1) return { view: head };
+  if (head === "projet" && parts.length === 2) return { view: "projet", slug: parts[1] };
+  if (VIEWS.has(head) && parts.length === 1 && head !== "projet") return { view: head };
   if (!parts.length) return { view: "accueil" };
   return { view: "introuvable" };
 }
 
 export function navTarget(route) {
+  if (route.view === "projet") return "projets";
   if (VIEWS.has(route.view)) return route.view;
   return "";
 }
