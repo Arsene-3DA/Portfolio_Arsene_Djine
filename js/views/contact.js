@@ -7,7 +7,7 @@ export function render() {
     ${sectionHead("08", "Contact", profile.location)}
     <div class="grid-12">
       <div class="span-7">
-        <p class="role">${escapeHtml(profile.role)}</p>
+        <p class="current-title">${escapeHtml(profile.role)}</p>
         <p class="lede">${escapeHtml(profile.lead)}</p>
       </div>
       <div class="coords span-5">

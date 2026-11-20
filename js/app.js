@@ -24,6 +24,8 @@ function draw(route) {
   const meta = pageMeta(route);
   document.title = meta.title;
   if (description) description.setAttribute("content", meta.description);
+  document.querySelector('meta[property="og:title"]')?.setAttribute("content", meta.title);
+  document.querySelector('meta[property="og:description"]')?.setAttribute("content", meta.description);
   setNav(navTarget(route));
   const footer = document.querySelector("footer");
   if (footer) footer.hidden = route.view === "contact";
