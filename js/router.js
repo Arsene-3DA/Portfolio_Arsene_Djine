@@ -22,21 +22,20 @@ export function parseRoute(hash = location.hash) {
   if (path && !path.startsWith("/")) {
     const legacy = LEGACY[path];
     if (legacy) {
-      const next = legacy === "accueil" ? "#/" : `#/${legacy}`;
+      const next = `#/${legacy}`;
       if (location.hash !== next) location.replace(next);
       return { ignore: true, redirect: true };
     }
   }
 
   path = path.replace(/^\/+|\/+$/g, "");
-  if (path === "accueil") path = "";
   const parts = path.split("/").filter(Boolean);
-  const head = parts[0] || "accueil";
+  const head = parts[0] || "";
 
+  if (!parts.length) return { view: "cas" };
   if (head === "cas" && parts.length <= 2) return { view: "cas", slug: parts[1] || "" };
   if (head === "projet" && parts.length === 2) return { view: "projet", slug: parts[1] };
   if (VIEWS.has(head) && parts.length === 1 && head !== "projet") return { view: head };
-  if (!parts.length) return { view: "accueil" };
   return { view: "introuvable" };
 }
 
@@ -51,7 +50,7 @@ export function startRouter(onRoute) {
   const run = () => {
     const route = parseRoute();
     if (route.ignore) {
-      if (!ready && !route.redirect) onRoute({ view: "accueil" });
+      if (!ready && !route.redirect) onRoute({ view: "cas" });
       ready = true;
       return;
     }
