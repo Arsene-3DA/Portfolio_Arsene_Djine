@@ -18,7 +18,7 @@ export function render() {
     <div class="hero-copy">
       <p class="kicker">${escapeHtml(profile.location)}</p>
       <h1>${escapeHtml(profile.name)}</h1>
-      <p class="role">${escapeHtml(profile.role)}</p>
+      <p class="role-banner">${profile.role.split(" | ").map((part, index) => `${index ? '<span class="role-rule" aria-hidden="true"></span><span class="visually-hidden"> | </span>' : ""}<span>${escapeHtml(part)}</span>`).join("")}</p>
       <p class="lede">${escapeHtml(profile.lead)}</p>
       <p class="actions"><a class="link" href="#/cas">Explorer mes réalisations ↓</a></p>
     </div>

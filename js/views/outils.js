@@ -9,7 +9,7 @@ export function render() {
     <div class="tool-panel" data-tools>
       <div data-tools-svg></div>
     </div>
-    <button class="motion-toggle link" type="button" hidden>Mettre l’animation en pause</button>
+    <button class="motion-toggle" type="button" hidden>Mettre l’animation en pause</button>
   </section>
   <section>
     ${sectionHead("04", "Compétences techniques")}

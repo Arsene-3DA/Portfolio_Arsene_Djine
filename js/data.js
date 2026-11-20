@@ -3,7 +3,7 @@
 export const profile = {
   name: "Arsène Dissi Djine",
   wordmark: "ARSÈNE DJINE",
-  role: "Analyste en sécurité des données",
+  role: "Consultant en analytique prédictive | Prévision de la demande | Python, SQL et Fabric",
   location: "Gatineau, Québec",
   lead: "Qui peut consulter une donnée financière? Comment savoir si un rapport reproduit fidèlement les montants à la source? Ces questions guident mon travail, de la gestion des accès dans Microsoft Fabric aux contrôles de qualité en SQL.",
   email: "systemdissi@hotmail.com",
@@ -154,7 +154,7 @@ export function getProject(slug) {
 }
 
 export function pageMeta(route) {
-  const base = `${profile.name} | Sécurité des données`;
+  const base = `${profile.name} | ${profile.role}`;
   if (route.view === "cas") {
     const item = route.slug ? getCase(route.slug) : null;
     return { title: `${item ? item.summaryLabel : "Études de cas"} | ${profile.name}`, description: item?.text || cases[0].text };
