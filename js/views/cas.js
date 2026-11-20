@@ -1,32 +1,22 @@
-import { getCase } from "../data.js";
+import { cases, getCase } from "../data.js";
 import { escapeHtml } from "../format.js";
-import { breadcrumb, codeBlock } from "../components.js";
-import { missing } from "./missing.js";
+
+function caseDetails(item, open) {
+  const demo = item.code
+    ? `<h3>${escapeHtml(item.demoTitle)}</h3><p>${escapeHtml(item.demoNote)}</p><pre><code>${escapeHtml(item.code)}</code></pre>`
+    : `<h3>${escapeHtml(item.demoTitle)}</h3><ol>${item.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol>`;
+  return `<details ${open ? "open" : ""} id="cas-${escapeHtml(item.slug)}">
+    <summary>${escapeHtml(item.summaryLabel)}</summary>
+    <p>${escapeHtml(item.text)}</p>
+    ${demo}
+  </details>`;
+}
 
 export function render(route) {
-  const item = getCase(route.slug);
-  if (!item) return missing();
-  const demo = item.code
-    ? `<h2 class="section-title">${escapeHtml(item.demoTitle)}</h2><p>${escapeHtml(item.demoNote)}</p>${codeBlock(item.code, item.demoTitle)}`
-    : `<h2 class="section-title">${escapeHtml(item.demoTitle)}</h2><ol class="plain-steps">${item.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol>`;
-  return `<article class="view-detail">
-    <header class="page-head">
-      <div class="container">
-        ${breadcrumb([
-          { href: "#/", label: "Accueil" },
-          { href: "#/donnees", label: "Données" },
-          { label: `${item.kicker} · ${item.title}` }
-        ])}
-        <p class="eyebrow">${escapeHtml(item.kicker)}</p>
-        <h1 class="page-title">${escapeHtml(item.title)}</h1>
-        <p class="lede">${escapeHtml(item.summary)}</p>
-      </div>
-    </header>
-    <section class="section">
-      <div class="container detail-copy detail-narrow">
-        ${demo}
-        <div class="actions"><a class="button button-secondary" href="#/donnees">Retour aux données</a></div>
-      </div>
-    </section>
-  </article>`;
+  const one = route.slug ? getCase(route.slug) : null;
+  const list = one ? [one] : cases;
+  return `<section>
+    <h2>Études de cas</h2>
+    ${list.map((item, index) => caseDetails(item, Boolean(one) || index === 0)).join("")}
+  </section>`;
 }

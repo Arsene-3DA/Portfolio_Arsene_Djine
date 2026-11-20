@@ -5,7 +5,7 @@ export function mountToolNetwork(root) {
   const host = root.querySelector("[data-tools]");
   if (!host) return () => {};
   const slot = host.querySelector("[data-tools-svg]");
-  const button = host.querySelector(".motion-toggle");
+  const button = root.querySelector(".motion-toggle");
   let stopWatch = () => {};
   let cancelled = false;
 

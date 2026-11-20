@@ -1,24 +1,12 @@
-const VIEWS = new Set([
-  "accueil",
-  "services",
-  "donnees",
-  "projets",
-  "projet",
-  "cas",
-  "a-propos",
-  "contact"
-]);
+const VIEWS = new Set(["accueil", "cas", "projets", "outils", "parcours", "contact"]);
 
 const LEGACY = {
-  cas: "donnees",
-  outils: "donnees",
-  parcours: "a-propos",
+  cas: "cas",
+  outils: "outils",
+  parcours: "parcours",
   projets: "projets",
   contact: "contact",
-  accueil: "accueil",
-  services: "services",
-  donnees: "donnees",
-  "a-propos": "a-propos"
+  accueil: "accueil"
 };
 
 export function parseRoute(hash = location.hash) {
@@ -45,18 +33,13 @@ export function parseRoute(hash = location.hash) {
   const parts = path.split("/").filter(Boolean);
   const head = parts[0] || "accueil";
 
-  if (head === "projet" && parts[1]) return { view: "projet", slug: parts[1] };
-  if (head === "cas" && parts[1]) return { view: "cas", slug: parts[1] };
-  if (VIEWS.has(head) && parts.length === 1 && head !== "projet" && head !== "cas") {
-    return { view: head };
-  }
+  if (head === "cas" && parts.length <= 2) return { view: "cas", slug: parts[1] || "" };
+  if (VIEWS.has(head) && parts.length === 1) return { view: head };
   if (!parts.length) return { view: "accueil" };
   return { view: "introuvable" };
 }
 
 export function navTarget(route) {
-  if (route.view === "projet") return "projets";
-  if (route.view === "cas") return "donnees";
   if (VIEWS.has(route.view)) return route.view;
   return "";
 }

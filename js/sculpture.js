@@ -3,7 +3,7 @@ import { reduceMotion } from "./motion.js";
 const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
 export function mountSculpture(host) {
-  if (!host || reduceMotion()) return () => {};
+  if (!host) return () => {};
 
   let dead = false;
   let renderer = null;
