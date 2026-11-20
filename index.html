@@ -2,8 +2,10 @@
 <html lang="fr-CA"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Arsène Dissi Djine | Sécurité des données</title>
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#faf8f2;color:#152e30;font:17px/1.6 system-ui,sans-serif}header,main,footer{max-width:1080px;margin:auto;padding:24px clamp(20px,5vw,64px)}header,nav,.tags{display:flex;gap:20px;flex-wrap:wrap;align-items:center}header{justify-content:space-between;border-bottom:1px solid #bac9c3}nav{gap:16px}a{color:#15594e;text-underline-offset:4px}header strong{letter-spacing:.12em}h1,h2,h3{font-family:Georgia,serif;font-weight:500;line-height:1.1}h1{font-size:clamp(48px,8vw,96px);letter-spacing:-.055em;margin:12px 0}h2{font-size:clamp(32px,5vw,52px);margin:0 0 28px}h3{font-size:24px;margin:12px 0}.hero{padding:clamp(45px,8vw,100px) 0}.role{color:#28685c;font-weight:650;font-size:clamp(21px,3vw,31px)}p{max-width:70ch}.button{display:inline-block;background:#174d43;color:white;padding:10px 18px;border-radius:4px;text-decoration:none}section{padding:48px 0;border-bottom:1px solid #bac9c3}small,dt{font-weight:700;color:#33675c}details,article{padding:20px 0;border-top:1px solid #c8d0c9}summary{cursor:pointer;font-size:20px;font-weight:650}pre{max-width:100%;overflow:auto;padding:16px;background:#173431;color:#eff8e9;border-radius:5px;font-size:14px}dd{margin:0 0 14px}footer{padding-bottom:60px}a:focus-visible,summary:focus-visible{outline:3px solid #ae641c;outline-offset:4px}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{background:#101e25;color:#e8efe9}header,section,details,article{border-color:#395057}a,small,dt,.role{color:#96decc}.button{background:#a7edcf;color:#102e2c;border-radius:24px}header strong{font-size:14px}main,header,footer{max-width:1250px}.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:3vw;align-items:center}h1{font-size:clamp(52px,7.3vw,98px)}.sculpture{position:relative;aspect-ratio:1;background:radial-gradient(ellipse at center,#25434a,transparent 68%);display:grid;place-items:center}.sculpture canvas{display:block;width:100%;height:100%;position:absolute;inset:0}.sculpture:before{content:"";width:49%;height:49%;border:1px solid #88dbc6;transform:rotate(35deg);box-shadow:10px 10px 0 #294c52,11px 11px 0 #85b4ae,22px 22px 0 #234248,23px 23px 0 #cea274}.sculpture.ready:before{visibility:hidden}#projets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}#projets h2{grid-column:1/-1}#projets article{border:1px solid #395057;border-radius:14px;background:#172a32;padding:clamp(18px,3vw,32px)}@media(max-width:720px){.hero,#projets{grid-template-columns:1fr}.sculpture{width:min(100%,350px);justify-self:center}.hero{padding-bottom:10px}nav{gap:12px}}
 </style></head><body><header><strong>ARSÈNE DJINE</strong><nav aria-label="Navigation principale"><a href="#cas">Réalisations</a><a href="#projets">Projets</a><a href="#parcours">Parcours</a><a href="#contact">Contact</a></nav></header><main>
-<section class="hero"><small>Gatineau, Québec</small><h1>Arsène Dissi Djine</h1><p class="role">Analyste en sécurité des données</p><p>Qui peut consulter une donnée financière? Comment savoir si un rapport reproduit fidèlement les montants à la source? Ces questions guident mon travail, de la gestion des accès dans Microsoft Fabric aux contrôles de qualité en SQL.</p><a class="button" href="#cas">Explorer mes réalisations ↓</a></section>
+<section class="hero"><div><small>Gatineau, Québec</small><h1>Arsène Dissi Djine</h1><p class="role">Analyste en sécurité des données</p><p>Qui peut consulter une donnée financière? Comment savoir si un rapport reproduit fidèlement les montants à la source? Ces questions guident mon travail, de la gestion des accès dans Microsoft Fabric aux contrôles de qualité en SQL.</p><a class="button" href="#cas">Explorer mes réalisations ↓</a></div><div class="sculpture" aria-hidden="true"></div></section>
 <section id="cas"><h2>Études de cas</h2><details open><summary>Solydd · Suivre les accès aux données</summary><p>J’ai centralisé les données de SQL Server et de SharePoint dans un Lakehouse Microsoft Fabric pour alimenter Power BI. J’ai géré les autorisations sur les vues avec des groupes Entra ID et analysé les journaux d’accès avec KQL.</p><h3>Démonstration KQL</h3><p>Dans ce journal fictif, deux lectures refusées invitent à vérifier les droits du groupe Finance.</p><pre><code>datatable(Groupe:string, Action:string, Résultat:string)
 [
   "Finance", "Lecture", "Refusé",
@@ -35,4 +37,62 @@ HAVING SUM(e.montant) &lt;&gt; r.total;</code></pre></details>
 <article><small>Janv. 2016 – sept. 2018 · Genève</small><h3>Secrets de Data</h3>Développeur d’applications C# et .NET. Formulaires, contrôles de saisie, requêtes SQL et validation des correctifs.</article></section>
 <section><h2>Compétences techniques</h2><dl><dt>Données et analytique</dt><dd>SQL Server, Microsoft Fabric, OneLake, Lakehouse, Warehouse, Power BI, Airflow et dbt</dd><dt>Sécurité et surveillance</dt><dd>Microsoft Sentinel, Defender XDR, Entra ID, Azure Log Analytics, KQL, Palo Alto et Fortinet</dd><dt>Développement et exploitation</dt><dd>Python, Java, C#, PowerShell, GitHub, Terraform, Docker et Windows Server</dd><dt>Applications métier</dt><dd>Dynamics 365, SharePoint, Teams, Power Apps et Excel</dd><dt>Outils d’IA</dt><dd>Codex, Claude Code et Grok</dd></dl></section>
 <section><h2>Formation et certification</h2><dl><dt>Baccalauréat en génie informatique</dt><dd>Université du Québec en Outaouais · Gatineau</dd><dt>Génie logiciel</dt><dd>Collège communautaire du Nouveau-Brunswick</dd><dt>Microsoft · SC-200</dt><dd>Analyste des opérations de sécurité associé</dd></dl></section></main>
-<footer id="contact"><h2>Contact</h2><div class="tags"><a href="mailto:systemdissi@hotmail.com">systemdissi@hotmail.com</a><a href="tel:+18736555275">873-655-5275</a><a href="https://github.com/Arsene-3DA">GitHub</a></div></footer></body></html>
+<footer id="contact"><h2>Contact</h2><div class="tags"><a href="mailto:systemdissi@hotmail.com">systemdissi@hotmail.com</a><a href="tel:+18736555275">873-655-5275</a><a href="https://github.com/Arsene-3DA">GitHub</a></div></footer><script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+const host=document.querySelector('.sculpture');
+function buildSculpture(){
+  const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  host.append(renderer.domElement);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(34,1,.1,50);
+  camera.position.set(4,3.1,5);
+  camera.lookAt(0,0,0);
+  const stack=new THREE.Group();
+  scene.add(stack);
+  for(let i=0;i<5;i++){
+    const plate=new THREE.Group();
+    const shape=new THREE.BoxGeometry(2.25,.085,2.25);
+    const color=i===2?0xe9ad75:0x8be1ca;
+    plate.add(new THREE.Mesh(shape,new THREE.MeshBasicMaterial({color,transparent:true,opacity:.13,depthWrite:false})));
+    plate.add(new THREE.LineSegments(new THREE.EdgesGeometry(shape),new THREE.LineBasicMaterial({color})));
+    plate.position.y=(i-2)*.44;
+    plate.rotation.y=(i-2)*.09;
+    stack.add(plate);
+  }
+  const bead=new THREE.SphereGeometry(.043,12,8);
+  const metal=new THREE.MeshBasicMaterial({color:0xffc489});
+  for(const x of [-.72,.72]){
+    for(const z of [-.72,.72]){
+      const path=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x,-.88,z),new THREE.Vector3(x,.88,z)]);
+      stack.add(new THREE.Line(path,new THREE.LineBasicMaterial({color:0x528f88})));
+      for(let i=-2;i<=2;i++){
+        const node=new THREE.Mesh(bead,metal);
+        node.position.set(x,i*.44,z);
+        stack.add(node);
+      }
+    }
+  }
+  function draw(){
+    renderer.render(scene,camera);
+  }
+  function resize(){
+    renderer.setSize(host.clientWidth,host.clientHeight,false);
+    camera.aspect=host.clientWidth/host.clientHeight;
+    camera.updateProjectionMatrix();
+    draw();
+  }
+  new ResizeObserver(resize).observe(host);
+  resize();
+  host.classList.add('ready');
+  host.addEventListener('pointermove',event=>{
+    if(event.pointerType==='touch'||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const rect=host.getBoundingClientRect();
+    stack.rotation.y=((event.clientX-rect.left)/rect.width-.5)*.65;
+    stack.rotation.x=((event.clientY-rect.top)/rect.height-.5)*.16;
+    draw();
+  });
+  renderer.domElement.addEventListener('webglcontextlost',()=>host.classList.remove('ready'));
+}
+try{buildSculpture()}catch(error){console.warn('Vue statique du portfolio',error)}
+</script></body></html>
